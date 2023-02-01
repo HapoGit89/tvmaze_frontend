@@ -69,12 +69,15 @@ function populateShows(shows) {
          </div>  
        </div>
       `);
+      console.log(show.id)
 
-      $('.Show-getEpisodes').on('click', async function(show){
-        show = show.id
-        const episodes = await getEpisode(show);
-        console.log(show.name)
-        populateEpisodes(episodes);
+      $(`*[data-show-id="${show.id}"], button`).on('click', async function(e){
+       const id= $(e.target).parent().parent().parent().data("show-id")
+        console.log( id)
+        
+        const eps = await getEpisode(id)
+      
+        populateEpisodes(eps);
 
       })
 

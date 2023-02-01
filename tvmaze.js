@@ -18,7 +18,7 @@ async function getShowsByTerm(term) {
 
 
 for (let result of response.data){
-  resultArr.push({id: result.show.id, name: result.show.name, summary: result.show.summary, image: result.show.image.original})
+  resultArr.push({id: result.show.id, name: result.show.name, summary: result.show.summary, image: (result.show.image === null ? 'https://tinyurl.com/tv-missing' : result.show.image.original) })
 }
 
 return resultArr
@@ -36,6 +36,9 @@ function populateShows(shows) {
   $showsList.empty();
 
   for (let show of shows) {
+    if (show.image === null){
+      show.image = '';
+    }
     const $show = $(
         `<div data-show-id="${show.id}" class="Show col-md-12 col-lg-6 mb-4">
          <div class="media">

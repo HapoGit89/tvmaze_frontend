@@ -39,7 +39,11 @@ return resultArr
 }
 
   
-
+$showsList.on('click', async function(e){
+  const showId = $(e.target).parent().parent().parent().data("showId")
+  const episodes = await getEpisode(showId)
+  populateEpisodes(episodes)
+})
 
 
   
@@ -50,7 +54,6 @@ function populateShows(shows) {
   $showsList.empty();
 
   for (let show of shows) {
-    console.log (show.name)
    
     const $show = $(
         `<div data-show-id="${show.id}" class="Show col-md-12 col-lg-6 mb-4">
@@ -69,20 +72,22 @@ function populateShows(shows) {
          </div>  
        </div>
       `);
-      console.log(show.id)
 
-      $(`*[data-show-id="${show.id}"], button`).on('click', async function(e){
-       const id= $(e.target).parent().parent().parent().data("show-id")
-        console.log( id)
+      // $(`*[data-show-id="${show.id}"], button`).on('click', function(e){
+      //   console.log(show.id)
+      // //  const id= $(e.target).parent().parent().parent().data("show-id")
+      // //   console.log( id)
         
-        const eps = await getEpisode(id)
+      //   //const eps = await getEpisode(id)
       
-        populateEpisodes(eps);
+      //   //populateEpisodes(eps);
 
-      })
+      // })
 
     $showsList.append($show);  }
 }
+
+
 
 
 function populateEpisodes(episodes) {
